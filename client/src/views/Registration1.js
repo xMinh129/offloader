@@ -10,12 +10,64 @@ import {
 
 import { Card } from "../components/Card.jsx";
 import { FormInputs } from "../components/FormInputs.jsx";
-import { UserCard } from "../components/UserCard.jsx";
 import Button from "../components/CustomButton.jsx";
-
-import avatar from "../assets/img/faces/face-3.jpg";
+import { DescriptionError } from "../data/ErrorMessages"
+import NotificationSystem from 'react-notification-system';
+import {style} from "../variables/Variables.jsx";
 
 class Registration1 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            description: '',
+            validation: {
+                validity: false,
+                errors: []
+            },
+            _notificationSystem: null
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.getValidationState = this.getValidationState.bind(this);
+        this.validateSubmit = this.validateSubmit.bind(this);
+    }
+
+    validateSubmit(position){
+        var level = 'error'; // 'success', 'warning', 'error' or 'info'
+        this.state._notificationSystem.addNotification({
+            title: (<span data-notify="icon" className="pe-7s-gift"></span>),
+            message: (
+                <div>
+                    {DescriptionError}
+                    {DescriptionError}
+                    {DescriptionError}
+                </div>
+            ),
+            level: level,
+            position: position,
+            autoDismiss: 15,
+        });
+    }
+
+    componentDidMount(){
+        this.setState({_notificationSystem: this.refs.notificationSystem})
+    }
+
+    handleChange(e) {
+        let change = {};
+        change[e.target.name] = e.target.value;
+        this.setState(change)
+    }
+
+    getValidationState() {
+        const length = this.state.description.length;
+        if (length > 20) return 'success';
+        else if (length > 13) return 'warning';
+        else if (length > 0) return 'error';
+        return null;
+    }
+
+
     render() {
         return (
             <div className="content">
@@ -114,19 +166,26 @@ class Registration1 extends Component {
 
                                         <Row>
                                             <Col md={12}>
-                                                <FormGroup controlId="formControlsTextarea">
-                                                    <ControlLabel>About Me</ControlLabel>
-                                                    <FormControl
-                                                        rows="5"
-                                                        componentClass="textarea"
-                                                        bsClass="form-control"
-                                                        placeholder="Here can be your description"
-                                                        defaultValue="I am the most awesome plumber in the world~"
-                                                    />
-                                                </FormGroup>
+
                                             </Col>
                                         </Row>
-                                        <Button bsStyle="info" pullRight fill type="submit">
+                                        <FormGroup controlId="formControlsTextarea"
+                                                   validationState={this.getValidationState()}>
+                                            <ControlLabel>About Me</ControlLabel>
+                                            <FormControl
+                                                rows="5"
+                                                componentClass="textarea"
+                                                bsClass="form-control"
+                                                name="description"
+                                                value={this.state.description}
+                                                placeholder="Here can be your description"
+                                                onChange={this.handleChange}
+                                                defaultValue="I am the most awesome plumber in the world~"
+                                            />
+                                            <FormControl.Feedback />
+                                        </FormGroup>
+                                        <Button bsStyle="info" pullRight fill name="submit"
+                                                onClick={this.validateSubmit.bind(this, 'bc')}>
                                             Next
                                         </Button>
                                         <div className="clearfix" />
@@ -138,6 +197,8 @@ class Registration1 extends Component {
                         </Col>
                     </Row>
                 </Grid>
+
+                <NotificationSystem ref="notificationSystem" style={style}/>
             </div>
         );
     }

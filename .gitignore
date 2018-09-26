@@ -14,7 +14,7 @@ client/node_modules
 # testing
 /coverage
 
-
+*.csv
 
 # IntelliJ IDE
 .idea/
