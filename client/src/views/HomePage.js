@@ -22,7 +22,7 @@ class PassengerList extends Component {
         var self = this;
         axios.get("http://0.0.0.0:5010/api/passengers" + '?flightNumber=' + this.state.flightNumber)
             .then(function (response) {
-                let data = response.data.data;
+                let data = response.data;
                 console.log(data);
                 self.setState({data: data});
                 self.props.updateStep(self.state);

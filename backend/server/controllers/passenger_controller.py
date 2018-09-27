@@ -19,8 +19,9 @@ class PassengerController(object):
         @app.route('/api/passengers', methods=['GET'])
         def get_passengers():
             flightNumber = request.args.get('flightNumber')
-            data = pd.read_csv(MOCK_DATA_PATH, header=0).sample(100)
-            return data.to_json(orient='table')
+            data = pd.read_csv(MOCK_DATA_PATH, header=None)
+            # data = pd.read_csv(MOCK_DATA_PATH, header=0).sample(100)
+            return data.to_json(orient='values')
             # return handle_response({
             #     'success': True,
             #     'data': 'hello_world'

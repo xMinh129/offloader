@@ -27,10 +27,13 @@ class App extends Component {
         this.setState(newState);
     }
 
-    updateStateAndSubmit(newState) {
+    updateStateAndSubmit(newState, callback) {
         // Submit Registrant's info here in the call back
         // State does not immediately update. So call in this setState function.
-        this.setState(newState, () => {console.log(this.state)});
+        this.setState(newState, () => {
+            console.log(this.state);
+            callback();
+        });
     }
 
     render() {
