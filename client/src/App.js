@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+// import logo from './nodeflair_logo.png';
 import './App.css';
 import Footer from './components/Footer';
-import Button from './components/CustomButton';
-import Registration1 from './views/Registration1';
-import Registration2 from './views/Registration2';
+import HomePage from './views/HomePage';
+import PassengerList from './views/PassengerList';
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,26 +14,42 @@ import "./assets/css/demo.css";
 import "./assets/css/pe-icon-7-stroke.css";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          Welcome to NodeFlair Registration Portal.
-            Click the button below to start.
-        </p>
-          <div style={{height:'400px'}}>
-                  <Button fill round bsStyle="primary">Enter</Button>
-          </div>
-          <Registration1/>
-          <Registration2/>
-        <Footer />
-      </div>
-    );
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        };
+        this.updateState = this.updateState.bind(this);
+        this.updateStateAndSubmit = this.updateStateAndSubmit.bind(this);
+    }
+
+    updateState(newState) {
+        this.setState(newState);
+    }
+
+    updateStateAndSubmit(newState) {
+        // Submit Registrant's info here in the call back
+        // State does not immediately update. So call in this setState function.
+        this.setState(newState, () => {console.log(this.state)});
+    }
+
+    render() {
+        return (
+            <Router>
+                <div className="App">
+                    {/*<header className="App-header">*/}
+                        {/*/!*<img src={logo} alt="logo" style={{height: '80px'}}/>*!/*/}
+                    {/*</header>*/}
+
+                    <Route exact path="/" render={() => <HomePage updateStep={this.updateState} />} />
+                    <Route path="/1" render={() => <PassengerList
+                        updateStep={this.updateState}
+                        newState={this.state}/>} />
+                    <Footer/>
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;
