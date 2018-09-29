@@ -1,17 +1,15 @@
 import React from "react";
 import { render } from "react-dom";
-
-// Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-
 import Chance from "chance";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
-// import testData from "./test_data";
+import _ from "lodash";
 
 const CheckboxTable = checkboxHOC(ReactTable);
-
 const chance = new Chance();
+
+// This component is taken from https://react-table.js.org/#/select-table-hoc
 
 function getData(data) {
     const outputData = data.data.map(item => {
@@ -44,8 +42,14 @@ function getColumns(data) {
 class Table extends React.Component {
     constructor(props) {
         super(props);
-        var data = getData(this.props.newState);
+        var rawData;
+        if (_.isEmpty(this.props.newState))
+            rawData = this.state.data;
+        else
+            rawData = this.props.newState;
+        var data = getData(rawData);
         const columns = getColumns(data);
+        // const essentialColumns = columns.slice(0, 5);
         data.shift();  // dequeue the first row, which is actually the header row.
         this.state = {
             data,
@@ -53,6 +57,11 @@ class Table extends React.Component {
             selection: [],
             selectAll: false
         };
+
+        this.toggleSelection = this.toggleSelection.bind(this);
+        this.toggleAll = this.toggleAll.bind(this);
+        this.isSelected = this.isSelected.bind(this);
+        // this.logSelection = this.logSelection.bind(this);
     }
 
     toggleSelection = (key, shift, row) => {
@@ -122,9 +131,9 @@ class Table extends React.Component {
         return this.state.selection.includes(key);
     };
 
-    logSelection = () => {
-        console.log("selection:", this.state.selection);
-    };
+    // logSelection = () => {
+    //     console.log("selection:", this.state.selection);
+    // };
 
     render() {
         const { toggleSelection, toggleAll, isSelected, logSelection } = this;
@@ -151,7 +160,7 @@ class Table extends React.Component {
 
         return (
             <div>
-                <button onClick={logSelection}>Log Selection</button>
+                {/*<button onClick={logSelection}>Log Selection</button>*/}
                 <CheckboxTable
                     ref={r => (this.checkboxTable = r)}
                     data={data}

@@ -9,21 +9,16 @@ import {
 } from "react-bootstrap";
 
 import { Card } from "../components/Card.jsx";
-import { FormInputs } from "../components/FormInputs.jsx";
 import Button from "../components/CustomButton.jsx";
 import { DescriptionError } from "../data/ErrorMessages"
-import {style} from "../variables/Variables.jsx";
 import Table from './Table';
+import ScoreTable from "./ScoreTable";
 
 class PassengerList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            description: '',
-            validation: {
-                validity: false,
-                errors: []
-            },
+
         };
         this.handleChange = this.handleChange.bind(this);
         this.validateSubmit = this.validateSubmit.bind(this);
@@ -52,15 +47,6 @@ class PassengerList extends Component {
         this.setState(change)
     }
 
-    getValidationState() {
-        const length = this.state.description.length;
-        if (length > 20) return 'success';
-        else if (length > 13) return 'warning';
-        else if (length > 0) return 'error';
-        return null;
-    }
-
-
     render() {
         return (
             <div className="content">
@@ -77,8 +63,12 @@ class PassengerList extends Component {
                                             updateStep={this.props.updateStep}
                                             newState={this.props.newState}
                                         />
+                                        <br/>
+                                        <br/>
+                                        <ScoreTable/>
+                                        <br/>
                                         <Button bsStyle="info" pullRight fill name="submit">
-                                            Next
+                                            Dummy
                                         </Button>
                                         <div className="clearfix" />
                                     </form>

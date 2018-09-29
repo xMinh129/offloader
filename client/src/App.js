@@ -48,7 +48,7 @@ class App extends Component {
                     <Route path="/1" render={() => <PassengerList
                         updateStep={this.updateState}
                         newState={this.state}/>} />
-                    <Footer/>
+                    {/*<Footer/>*/}
                 </div>
             </Router>
         );
