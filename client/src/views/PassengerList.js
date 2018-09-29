@@ -17,9 +17,7 @@ import ScoreTable from "./ScoreTable";
 class PassengerList extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        };
+        this.state = {};
         this.handleChange = this.handleChange.bind(this);
         this.validateSubmit = this.validateSubmit.bind(this);
     }

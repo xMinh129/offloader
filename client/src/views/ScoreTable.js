@@ -1,8 +1,6 @@
 import React from "react";
 import {render} from "react-dom";
-// import { makeData, Logo, Tips } from "./Utils";
 import {data as data2} from './temp';
-// Import React Table
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
