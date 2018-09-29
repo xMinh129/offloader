@@ -1,6 +1,7 @@
 export const data = [
     {
-        name:'Minh Vu Xuan',
+        first_name:'Minh',
+        last_name:'Vu Xuan',
         score: '100',
         details: {
             ticket_no: 23423,
@@ -9,7 +10,8 @@ export const data = [
         }
     },
     {
-        name:'Martinia',
+        first_name:'Minhna',
+        last_name:'Vu Xuan',
         score: '200',
         details: {
             ticket_no: 49324,
@@ -18,7 +20,8 @@ export const data = [
         }
     },
     {
-        name:'Chen Xinyu',
+        first_name:'Martini',
+        last_name:'Andrawa',
         score: '90',
         details: {
             ticket_no: 7589,
@@ -27,7 +30,8 @@ export const data = [
         }
     },
     {
-        name:'Wang Ke',
+        first_name:'Ke',
+        last_name:'Wang',
         score: '90',
         details: {
             ticket_no: 7589,

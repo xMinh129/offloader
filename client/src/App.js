@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 import HomePage from './views/HomePage';
 import PassengerList from './views/PassengerList';
+import ScoreList from "./views/ScoreList";
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,7 +13,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            data: null,
+            rankedData: null
         };
         this.updateState = this.updateState.bind(this);
         this.updateStateAndSubmit = this.updateStateAndSubmit.bind(this);
@@ -39,9 +41,13 @@ class App extends Component {
                         {/*/!*<img src={logo} alt="logo" style={{height: '80px'}}/>*!/*/}
                     {/*</header>*/}
 
-                    <Route exact path="/" render={() => <HomePage updateStep={this.updateState} />} />
-                    <Route path="/1" render={() => <PassengerList
-                        updateStep={this.updateState}
+                    <Route exact path="/" render={() => <HomePage
+                        updateState={this.updateState} />} />
+                    <Route path="/passengers" render={() => <PassengerList
+                        updateState={this.updateState}
+                        newState={this.state}/>} />
+                    <Route path="/ranked_passengers" render={() => <ScoreList
+                        updateState={this.updateState}
                         newState={this.state}/>} />
                 </div>
             </Router>

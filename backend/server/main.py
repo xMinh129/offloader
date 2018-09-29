@@ -6,6 +6,7 @@ import logging
 import traceback
 from time import strftime
 from logging.handlers import RotatingFileHandler
+from flight_data import FLIGHTS_MAP
 
 app = Flask(__name__, template_folder='templates')
 cors = CORS(app)
@@ -80,14 +81,17 @@ def health_check():
 
 @app.route('/api/notify_passengers', methods=['POST'])
 def send_email():
-    name = request.data.get('name')
-    flightNumber = request.data.get('flightNumber')
-    fromDest = request.data.get('fromDest')
-    toDest = request.data.get('toDest')
+    data = json.loads(request.data)
+    name = data.get('name')
+    # flightNumber = request.data.get('flightNumber')
+    # fromDest = request.data.get('fromDest')
+    # toDest = request.data.get('toDest')
+    recipient = data.get('recipient')
     msg = Message("SIA Offload",
                   sender="xuanminh12995@gmail.com",
-                  recipients=["minh.vu@u.nus.edu"])
-    msg.html = render_template('mail.html', name=name, flightNumber=flightNumber, fromDest=fromDest, toDest=toDest)
+                  recipients=[recipient])
+    msg.html = render_template('mail.html', name=name, flightNumber='SQ890',
+                               fromDest='SIN', toDest='HKG', suggestedFlights=FLIGHTS_MAP)
     try:
         mail.send(msg)
         return jsonify(success=True)

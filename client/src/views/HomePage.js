@@ -23,10 +23,10 @@ class PassengerList extends Component {
                 let data = response.data;
                 console.log(data);
                 self.setState({data: data});
-                self.props.updateStep(self.state);
-                self.props.history.push('/1');
+                self.props.updateState(self.state);
+                self.props.history.push('/passengers');
             }).catch(error => {
-                console.log("There's an error calling backend with axios");
+                console.log(error);
             });
     }
 

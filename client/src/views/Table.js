@@ -49,7 +49,6 @@ class Table extends React.Component {
             rawData = this.props.newState;
         var data = getData(rawData);
         const columns = getColumns(data);
-        // const essentialColumns = columns.slice(0, 5);
         data.shift();  // dequeue the first row, which is actually the header row.
         this.state = {
             data,
