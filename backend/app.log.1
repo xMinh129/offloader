@@ -1,0 +1,82 @@
+[2018-Sep-18 22:49] 127.0.0.1 GET http /health_check? 200 OK
+[2018-Sep-18 22:50] 127.0.0.1 GET http /api/passengers? 200 OK
+[2018-Sep-29 03:42] 127.0.0.1 POST http /api/flights? 405 METHOD NOT ALLOWED
+[2018-Sep-29 03:45] 127.0.0.1 POST http /api/flights? 200 OK
+[2018-Sep-29 03:52] 127.0.0.1 POST http /api/flights? 5xx INTERNAL SERVER ERROR
+Traceback (most recent call last):
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/Flask-0.12.2-py3.6.egg/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/Flask-0.12.2-py3.6.egg/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/minhvu/Desktop/offloader/backend/server/controllers/flight_controller.py", line 22, in get_flights
+    payload = json.loads(request.data)
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/Flask-0.12.2-py3.6.egg/flask/json.py", line 146, in loads
+    return _json.loads(s, **kwargs)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/json/__init__.py", line 367, in loads
+    return cls(**kw).decode(s)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/json/decoder.py", line 339, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/json/decoder.py", line 355, in raw_decode
+    obj, end = self.scan_once(s, idx)
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 4 column 2 (char 65)
+
+[2018-Sep-29 03:52] 127.0.0.1 POST http /api/flights? 200 OK
+[2018-Sep-29 03:53] 127.0.0.1 POST http /api/flights? 200 OK
+[2018-Sep-29 03:53] 127.0.0.1 POST http /api/flights? 200 OK
+[2018-Sep-29 03:53] 127.0.0.1 POST http /api/flights? 200 OK
+[2018-Sep-29 03:54] 127.0.0.1 POST http /api/flights? 200 OK
+[2018-Sep-29 03:54] 127.0.0.1 POST http /api/flights? 200 OK
+[2018-Sep-29 10:57] 127.0.0.1 POST http /api/flights? 5xx INTERNAL SERVER ERROR
+Traceback (most recent call last):
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/urllib3-1.23-py3.6.egg/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/urllib3-1.23-py3.6.egg/urllib3/connectionpool.py", line 343, in _make_request
+    self._validate_conn(conn)
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/urllib3-1.23-py3.6.egg/urllib3/connectionpool.py", line 849, in _validate_conn
+    conn.connect()
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/urllib3-1.23-py3.6.egg/urllib3/connection.py", line 356, in connect
+    ssl_context=context)
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/urllib3-1.23-py3.6.egg/urllib3/util/ssl_.py", line 359, in ssl_wrap_socket
+    return context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/ssl.py", line 407, in wrap_socket
+    _context=self, _session=session)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/ssl.py", line 814, in __init__
+    self.do_handshake()
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/ssl.py", line 1068, in do_handshake
+    self._sslobj.do_handshake()
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/ssl.py", line 689, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLEOFError: EOF occurred in violation of protocol (_ssl.c:777)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/requests-2.19.1-py3.6.egg/requests/adapters.py", line 445, in send
+    timeout=timeout
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/urllib3-1.23-py3.6.egg/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/urllib3-1.23-py3.6.egg/urllib3/util/retry.py", line 398, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='apigw.singaporeair.com', port=443): Max retries exceeded with url: /appchallenge/api/flightroutestatus (Caused by SSLError(SSLEOFError(8, 'EOF occurred in violation of protocol (_ssl.c:777)'),))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/Flask-0.12.2-py3.6.egg/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/Flask-0.12.2-py3.6.egg/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/minhvu/Desktop/offloader/backend/server/controllers/flight_controller.py", line 24, in get_flights
+    data=json.dumps(payload))
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/requests-2.19.1-py3.6.egg/requests/api.py", line 112, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/requests-2.19.1-py3.6.egg/requests/api.py", line 58, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/requests-2.19.1-py3.6.egg/requests/sessions.py", line 512, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/requests-2.19.1-py3.6.egg/requests/sessions.py", line 622, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/minhvu/.virtualenvs/offloader/lib/python3.6/site-packages/requests-2.19.1-py3.6.egg/requests/adapters.py", line 511, in send
+    raise SSLError(e, request=request)
+requests.exceptions.SSLError: HTTPSConnectionPool(host='apigw.singaporeair.com', port=443): Max retries exceeded with url: /appchallenge/api/flightroutestatus (Caused by SSLError(SSLEOFError(8, 'EOF occurred in violation of protocol (_ssl.c:777)'),))
+

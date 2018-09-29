@@ -17,7 +17,7 @@ logger.setLevel(logging.ERROR)
 logger.addHandler(handler)
 
 # Controllers
-from server.controllers.passenger_controller import PassengerController
+from server.controllers.passenger_controller  import PassengerController
 PassengerController(app)
 
 
