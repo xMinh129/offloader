@@ -3,30 +3,39 @@ import {Grid, Row, Col} from "react-bootstrap";
 import {withRouter} from "react-router-dom";
 import { Card } from "../components/Card.jsx";
 import Button from "../components/CustomButton.jsx";
-import Table from './Table';
-import axios from 'axios';
 import ScoreTable from "./ScoreTable";
+import NotificationSystem from 'react-notification-system';
+import {style} from "../variables/Variables.jsx";
 
-class PassengerList extends Component {
+class ScoreList extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            rankedData: this.props.newState.rankedData,
+            _notificationSystem: null
+        };
         this.handleChange = this.handleChange.bind(this);
-        this.getRankedList = this.getRankedList.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
+
     }
 
-    getRankedList(){
-        var self = this;
-        axios.get("http://0.0.0.0:5010/api/ranked_passengers")
-            .then(function (response) {
-                let rankedData = response.data.ranked_passengers;
-                console.log(rankedData);
-                self.setState({rankedData: rankedData});
-                self.props.updateState(self.state);
-                self.props.history.push('/ranked_passengers');
+    componentDidMount(){
+        this.setState({_notificationSystem: this.refs.notificationSystem})
+    }
 
-            }).catch(error => {
-                console.log(error);
+    handleClick(){
+        var level = 'success'; // 'success', 'warning', 'error' or 'info'
+        this.state._notificationSystem.addNotification({
+            title: (<span data-notify="icon" className="pe-7s-gift"></span>),
+            message: (
+                <div>
+                    Email successfully sent
+                </div>
+            ),
+            level: level,
+            position: 'bc',
+            autoDismiss: 15,
         });
     }
 
@@ -39,6 +48,7 @@ class PassengerList extends Component {
     render() {
         return (
             <div className="content">
+                <NotificationSystem ref="notificationSystem" style={style}/>
                 <Grid fluid>
                     <Row>
                         <Col md={1}>
@@ -48,16 +58,17 @@ class PassengerList extends Component {
                                 title="Basic Information"
                                 content={
                                     <form>
-                                        <Table
+                                        <ScoreTable
                                             updateState={this.props.updateState}
-                                            newState={this.props.newState}
+                                            newState={this.state.rankedData}
+                                            successNotification={() => this.handleClick}
                                         />
                                         <br/>
                                         <br/>
                                         <br/>
                                         <Button bsStyle="info" pullRight fill name="submit"
-                                                onClick={this.getRankedList}>
-                                            Get Ranked Passenger List
+                                                onClick={this.handleClick.bind(this,'bc')}>
+                                            Send Email
                                         </Button>
                                         <div className="clearfix" />
                                     </form>
@@ -74,4 +85,4 @@ class PassengerList extends Component {
     }
 }
 
-export default withRouter(PassengerList);
+export default withRouter(ScoreList);

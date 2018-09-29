@@ -2,22 +2,13 @@ FLIGHTS_MAP = [
     {
         'from': 'SIN',
         'to': 'HKG',
-        'flight_number': 'SQ890',
-        'departure_date': '2019-02-24',
-        'departure_time': '10:00',
-        'arrival_date': '2019-02-24',
-        'arrival_time': '15:00',
-        'class': 'economy'
-    },
-    {
-        'from': 'SIN',
-        'to': 'HKG',
         'flight_number': 'SQ981',
         'departure_date': '2019-02-24',
         'departure_time': '18:00',
         'arrival_date': '2019-02-25',
         'arrival_time': '1:00',
         'class': 'economy'
+
     },
     {
         'from': 'SIN',
@@ -26,26 +17,6 @@ FLIGHTS_MAP = [
         'departure_date': '2019-02-25',
         'departure_time': '12:00',
         'arrival_date': '2019-02-25',
-        'arrival_time': '17:00',
-        'class': 'economy'
-    },
-    {
-        'from': 'SIN',
-        'to': 'KOR',
-        'flight_number': 'SQ780',
-        'departure_date': '2018-10-07',
-        'departure_time': '8:00',
-        'arrival_date': '2018-10-07',
-        'arrival_time': '13:00',
-        'class': 'economy'
-    },
-    {
-        'from': 'SIN',
-        'to': 'KOR',
-        'flight_number': 'SQ789',
-        'departure_date': '2018-10-07',
-        'departure_time': '12:00',
-        'arrival_date': '2018-10-07',
         'arrival_time': '17:00',
         'class': 'economy'
     }
@@ -78,11 +49,11 @@ PASSENGER_INFO = [
      "ip_address": "211.243.90.222"},
     {"id": 13, "first_name": "Jolene", "last_name": "Burhouse", "email": "jburhousec@e-recht24.de", "gender": "Female",
      "ip_address": "16.125.234.88"},
-    {"id": 14, "first_name": "Jessalin", "last_name": "Brunnstein", "email": "jbrunnsteind@chronoengine.com",
+    {"id": 14, "first_name": "Martin", "last_name": "Indrawata", "email": "m.indrawata@u.nus.edu",
      "gender": "Female", "ip_address": "70.90.72.151"},
     {"id": 15, "first_name": "Dulcea", "last_name": "McReidy", "email": "dmcreidye@vistaprint.com", "gender": "Female",
      "ip_address": "77.78.153.139"},
-    {"id": 16, "first_name": "Orbadiah", "last_name": "Syrad", "email": "osyradf@sbwire.com", "gender": "Male",
+    {"id": 16, "first_name": "Xinyu", "last_name": "Chen", "email": "xinyu.chen@u.nus.edu", "gender": "Male",
      "ip_address": "106.160.187.235"},
     {"id": 17, "first_name": "Miran", "last_name": "Dyster", "email": "mdysterg@ihg.com", "gender": "Female",
      "ip_address": "25.15.65.87"},
@@ -122,7 +93,7 @@ PASSENGER_INFO = [
      "ip_address": "165.39.128.86"},
     {"id": 35, "first_name": "Alric", "last_name": "Wawer", "email": "awawery@businessweek.com", "gender": "Male",
      "ip_address": "220.250.132.185"},
-    {"id": 36, "first_name": "Silvanus", "last_name": "Revie", "email": "sreviez@bravesites.com", "gender": "Male",
+    {"id": 36, "first_name": "Pinzheng", "last_name": "Zhang", "email": "e0004544@u.nus.edu", "gender": "Male",
      "ip_address": "39.227.206.176"},
     {"id": 37, "first_name": "Dinny", "last_name": "Kalkofen", "email": "dkalkofen10@youtube.com", "gender": "Female",
      "ip_address": "244.54.155.113"},
@@ -234,7 +205,7 @@ PASSENGER_INFO = [
      "gender": "Female", "ip_address": "11.235.121.242"},
     {"id": 91, "first_name": "Griffin", "last_name": "Pleager", "email": "gpleager2i@gizmodo.com", "gender": "Male",
      "ip_address": "0.119.10.10"},
-    {"id": 92, "first_name": "Zaria", "last_name": "Mattingley", "email": "zmattingley2j@jimdo.com", "gender": "Female",
+    {"id": 92, "first_name": "Darius", "last_name": "He", "email": "e0007888@u.nus.edu", "gender": "Male",
      "ip_address": "53.249.198.143"},
     {"id": 93, "first_name": "Rafi", "last_name": "Millmore", "email": "rmillmore2k@vinaora.com", "gender": "Male",
      "ip_address": "37.136.27.219"},

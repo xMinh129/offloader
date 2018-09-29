@@ -1,23 +1,20 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
-// import logo from './nodeflair_logo.png';
 import './App.css';
-import Footer from './components/Footer';
 import HomePage from './views/HomePage';
 import PassengerList from './views/PassengerList';
+import ScoreList from "./views/ScoreList";
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./assets/css/animate.min.css";
 import "./assets/sass/light-bootstrap-dashboard.css?v=1.2.0";
-import "./assets/css/demo.css";
-import "./assets/css/pe-icon-7-stroke.css";
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            data: null,
+            rankedData: null
         };
         this.updateState = this.updateState.bind(this);
         this.updateStateAndSubmit = this.updateStateAndSubmit.bind(this);
@@ -44,11 +41,14 @@ class App extends Component {
                         {/*/!*<img src={logo} alt="logo" style={{height: '80px'}}/>*!/*/}
                     {/*</header>*/}
 
-                    <Route exact path="/" render={() => <HomePage updateStep={this.updateState} />} />
-                    <Route path="/1" render={() => <PassengerList
-                        updateStep={this.updateState}
+                    <Route exact path="/" render={() => <HomePage
+                        updateState={this.updateState} />} />
+                    <Route path="/passengers" render={() => <PassengerList
+                        updateState={this.updateState}
                         newState={this.state}/>} />
-                    <Footer/>
+                    <Route path="/ranked_passengers" render={() => <ScoreList
+                        updateState={this.updateState}
+                        newState={this.state}/>} />
                 </div>
             </Router>
         );

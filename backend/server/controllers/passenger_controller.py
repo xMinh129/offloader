@@ -22,7 +22,7 @@ class PassengerController(object):
             # flightNumber = request.args.get('flightNumber')
             data = pd.read_csv(MOCK_DATA_PATH, header=None)
             # data = pd.read_csv(MOCK_DATA_PATH, header=0).sample(100)
-            return jsonify(passengers=data.to_json(orient='values'))
+            return data.to_json(orient='values')
 
         @app.route('/api/ranked_passengers', methods=['GET'])
         def get_ranked_passengers():

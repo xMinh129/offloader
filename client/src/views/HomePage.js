@@ -1,12 +1,10 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {Grid, Row, Col} from "react-bootstrap";
-import {BrowserRouter as Router, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import axios from 'axios';
-import { Card } from "../components/Card.jsx";
-import { FormInputs } from "../components/FormInputs.jsx";
+import {Card} from "../components/Card.jsx";
+import {FormInputs} from "../components/FormInputs.jsx";
 import Button from "../components/CustomButton.jsx";
-import { DescriptionError } from "../data/ErrorMessages"
-import {style} from "../variables/Variables.jsx";
 
 class PassengerList extends Component {
     constructor(props) {
@@ -25,8 +23,10 @@ class PassengerList extends Component {
                 let data = response.data;
                 console.log(data);
                 self.setState({data: data});
-                self.props.updateStep(self.state);
-                self.props.history.push('/1');
+                self.props.updateState(self.state);
+                self.props.history.push('/passengers');
+            }).catch(error => {
+                console.log(error);
             });
     }
 
