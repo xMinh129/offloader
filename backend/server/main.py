@@ -80,10 +80,11 @@ def health_check():
 
 @app.route('/api/notify_passengers', methods=['POST'])
 def send_email():
-    name = request.data.get('name')
-    flightNumber = request.data.get('flightNumber')
-    fromDest = request.data.get('fromDest')
-    toDest = request.data.get('toDest')
+    request_data = json.loads(request.data)
+    name = request_data.get('name')
+    flightNumber = request_data.get('flightNumber')
+    fromDest = request_data.get('fromDest')
+    toDest = request_data.get('toDest')
     msg = Message("SIA Offload",
                   sender="xuanminh12995@gmail.com",
                   recipients=["minh.vu@u.nus.edu"])
