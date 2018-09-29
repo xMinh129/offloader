@@ -1,6 +1,7 @@
 import os
 from flask import Flask, Response, json, request, jsonify, render_template
 from flask_cors import CORS
+from backend.server.flight_data import FLIGHTS_MAP
 
 import logging
 import traceback
@@ -79,18 +80,47 @@ def health_check():
 
 
 @app.route('/api/notify_passengers', methods=['POST'])
-def send_email():
+def notify_passengers():
     request_data = json.loads(request.data)
-    name = request_data.get('name')
     flightNumber = request_data.get('flightNumber')
     fromDest = request_data.get('fromDest')
     toDest = request_data.get('toDest')
-    msg = Message("SIA Offload",
-                  sender="xuanminh12995@gmail.com",
-                  recipients=["minh.vu@u.nus.edu"])
-    msg.html = render_template('mail.html', name=name, flightNumber=flightNumber, fromDest=fromDest, toDest=toDest)
+    passengers = request_data.get('passengers')
+    option = request_data.get('option')
+    if option == 1:
+        suggestedFlights = get_suggested_flights(fromDest, toDest, flightNumber)
+    else:
+        suggestedFlights = None
     try:
-        mail.send(msg)
+        for passenger in passengers:
+            send_email(flightNumber,
+                       fromDest,
+                       toDest,
+                       option,
+                       passenger,
+                       suggestedFlights=suggestedFlights)
         return jsonify(success=True)
     except Exception as e:
         return jsonify(success=False)
+
+
+def send_email(flightNumber, fromDest, toDest, option, passenger_data, suggestedFlights=None):
+    msg = Message("SIA Offload",
+                  sender="xuanminh12995@gmail.com",
+                  recipients=[passenger_data['details']['email']])
+    if option == 1:
+        msg.html = render_template('mail.html',
+                                   name=passenger_data['name'],
+                                   flightNumber=flightNumber,
+                                   fromDest=fromDest,
+                                   toDest=toDest,
+                                   suggestedFlights=suggestedFlights)
+        mail.send(msg)
+
+
+def get_suggested_flights(fromDest, toDest, currentFlightNumber):
+    suggested_flights = []
+    for flight in FLIGHTS_MAP:
+        if flight.get('from') == fromDest and flight.get('to') == toDest and flight.get('flight_number') != currentFlightNumber:
+            suggested_flights.append(flight)
+    return suggested_flights
