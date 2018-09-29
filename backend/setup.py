@@ -7,9 +7,13 @@ setup(
     python_requires='>=2.7',
     packages=find_packages(),
     tests_require=['pytest==3.0.3'],
-    install_requires=['Flask==0.12.2',
-                      'Flask-Script==2.0.6',
+    install_requires=['pymongo==3.6.1',
+                      'Flask==0.12.2',
                       'flask_cors==3.0.3',
-                      'requests==2.19.1'
+                      'requests==2.18.4',
+                      'pandas',
+                      'numpy',
+                      'scikit-learn',
+                      'flask-mail'
                       ]
 )

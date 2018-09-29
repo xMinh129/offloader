@@ -1,5 +1,5 @@
 import os
-from flask import Flask, Response, json, request
+from flask import Flask, Response, json, request, jsonify, render_template
 from flask_cors import CORS
 
 import logging
@@ -7,8 +7,20 @@ import traceback
 from time import strftime
 from logging.handlers import RotatingFileHandler
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 cors = CORS(app)
+from flask_mail import Mail, Message
+
+mail = Mail(app)
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'xuanminh12995@gmail.com'
+app.config['MAIL_PASSWORD'] = 'hongMINH129'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
 
 # Logger
 handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=3)
@@ -18,7 +30,12 @@ logger.addHandler(handler)
 
 # Controllers
 from server.controllers.passenger_controller import PassengerController
+
 PassengerController(app)
+
+from server.controllers.flight_controller import FlightController
+
+FlightController(app)
 
 
 @app.after_request
@@ -59,3 +76,20 @@ def health_check():
     Health check
     """
     return Response(json.dumps({'reply': 'I\'m ok'}))
+
+
+@app.route('/api/notify_passengers', methods=['POST'])
+def send_email():
+    name = request.data.get('name')
+    flightNumber = request.data.get('flightNumber')
+    fromDest = request.data.get('fromDest')
+    toDest = request.data.get('toDest')
+    msg = Message("SIA Offload",
+                  sender="xuanminh12995@gmail.com",
+                  recipients=["minh.vu@u.nus.edu"])
+    msg.html = render_template('mail.html', name=name, flightNumber=flightNumber, fromDest=fromDest, toDest=toDest)
+    try:
+        mail.send(msg)
+        return jsonify(success=True)
+    except Exception as e:
+        return jsonify(success=False)
