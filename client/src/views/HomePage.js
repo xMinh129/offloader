@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {Grid, Row, Col} from "react-bootstrap";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import axios from 'axios';
-import { Card } from "../components/Card.jsx";
-import { FormInputs } from "../components/FormInputs.jsx";
+import {Card} from "../components/Card.jsx";
+import {FormInputs} from "../components/FormInputs.jsx";
 import Button from "../components/CustomButton.jsx";
 
 class PassengerList extends Component {
@@ -25,6 +25,8 @@ class PassengerList extends Component {
                 self.setState({data: data});
                 self.props.updateStep(self.state);
                 self.props.history.push('/1');
+            }).catch(error => {
+                console.log("There's an error calling backend with axios");
             });
     }
 

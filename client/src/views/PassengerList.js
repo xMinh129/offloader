@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import {
     Grid,
     Row,
-    Col,
-    FormGroup,
-    ControlLabel,
-    FormControl
+    Col
 } from "react-bootstrap";
 
 import { Card } from "../components/Card.jsx";
@@ -28,8 +25,6 @@ class PassengerList extends Component {
             title: (<span data-notify="icon" className="pe-7s-gift"></span>),
             message: (
                 <div>
-                    {DescriptionError}
-                    {DescriptionError}
                     {DescriptionError}
                 </div>
             ),
