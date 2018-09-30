@@ -6,7 +6,7 @@ import logging
 import traceback
 from time import strftime
 from logging.handlers import RotatingFileHandler
-from flight_data import FLIGHTS_MAP
+from backend.server.flight_data import FLIGHTS_MAP
 
 app = Flask(__name__, template_folder='templates')
 cors = CORS(app)
@@ -92,8 +92,5 @@ def send_email():
                   recipients=[recipient])
     msg.html = render_template('mail.html', name=name, flightNumber='SQ890',
                                fromDest='SIN', toDest='HKG', suggestedFlights=FLIGHTS_MAP)
-    try:
-        mail.send(msg)
-        return jsonify(success=True)
-    except Exception as e:
-        return jsonify(success=False)
+
+    mail.send(msg)
