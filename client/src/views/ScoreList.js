@@ -72,7 +72,7 @@ class ScoreList extends Component {
 
     render() {
         if (this.state.rankedData !== null) {
-            let {total_booked, checked_in, flight_capacity} = this.state.rankedData;
+            let {time_remained, total_booked, checked_in, flight_capacity} = this.state.rankedData;
             return (
                 <div className="content">
                     <NotificationSystem ref="notificationSystem" style={style}/>
@@ -91,8 +91,9 @@ class ScoreList extends Component {
                                                 successNotification={() => this.handleClick}
                                             />
                                             <br/>
+                                            <p>Time remaining before flight: {time_remained} minutes</p>
                                             <p>Total seats of the flight: {flight_capacity}</p>
-                                            <p>Total seats of the flight: {total_booked}</p>
+                                            <p>Total number of booked seats: {total_booked}</p>
                                             <p>Number of passengers checked in/on the taxi: {checked_in}</p>
                                             <p>Available seats left: <strong>{flight_capacity - checked_in}</strong></p>
                                             {
@@ -103,10 +104,12 @@ class ScoreList extends Component {
                                                 )
                                             }
                                             <br/>
-                                            <Button bsStyle="info" pullRight fill name="submit"
-                                                    onClick={this.handleClick.bind(this, 'bc')}>
-                                                Send Email
-                                            </Button>
+                                            {/*<Button bsStyle="info" pullRight fill name="submit"*/}
+                                                    {/*onClick={this.handleClick.bind(this, 'bc')}>*/}
+                                                {/*Send Email*/}
+                                            {/*</Button>*/}
+                                            <br/>
+                                            <br/>
                                             <Button bsStyle="info" pullRight fill name="submit"
                                                     onClick={this.refresh}>
                                                 Refresh

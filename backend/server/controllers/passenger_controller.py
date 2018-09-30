@@ -57,13 +57,14 @@ class PassengerController(object):
                 ranked_passengers=sorted(ranked_passengers, key=lambda k: k['score'], reverse=True),
                 checked_in=0,
                 flight_capacity=90,
-                total_booked=100
+                total_booked=100,
+                time_remained=900
             )
 
         @app.route('/api/update_ranklist', methods=['POST'])
         def update_ranked_passengers():
             ranklist = json.loads(request.data).get('ranklist').get('ranked_passengers')
-            total_booked = json.loads(request.data).get('ranklist').get('total_booked')
+            time_remained = json.loads(request.data).get('ranklist').get('time_remained')
             flight_capacity = json.loads(request.data).get('ranklist').get('flight_capacity')
             random_index = sample(range(1, 100), 15)
             checked_in = json.loads(request.data).get('ranklist').get('checked_in')
@@ -76,6 +77,7 @@ class PassengerController(object):
                     else:
                         ranklist[i].update({'status': 'CHECKED IN'})
                         checked_in += 1
+                    time_remained = 90
 
             else:
                 count = 2
@@ -87,8 +89,10 @@ class PassengerController(object):
                             checked_in += 1
                     else:
                         break
+                time_remained = time_remained - 10
 
             return jsonify(ranked_passengers=ranklist,
                            checked_in=checked_in,
                            flight_capacity=90,
-                           total_booked=100)
+                           total_booked=100,
+                           time_remained=time_remained)
