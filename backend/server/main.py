@@ -18,8 +18,8 @@ mail = Mail(app)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 # TODO to be put in environment when deployed
-app.config['MAIL_USERNAME'] = 'teammustwinsia@gmail.com'
-app.config['MAIL_PASSWORD'] = 'MustWin123!'
+app.config['MAIL_USERNAME'] = 'youremailaccount'
+app.config['MAIL_PASSWORD'] = 'yourpassword'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
