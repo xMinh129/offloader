@@ -1,4 +1,5 @@
 import os
+import random
 from flask import Flask, Response, json, request, jsonify, render_template
 from flask_cors import CORS
 
@@ -16,8 +17,9 @@ mail = Mail(app)
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'xuanminh12995@gmail.com'
-app.config['MAIL_PASSWORD'] = 'hongMINH129'
+# TODO to be put in environment when deployed
+app.config['MAIL_USERNAME'] = 'teammustwinsia@gmail.com'
+app.config['MAIL_PASSWORD'] = 'MustWin123!'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
@@ -94,3 +96,4 @@ def send_email():
                                fromDest='SIN', toDest='HKG', suggestedFlights=FLIGHTS_MAP)
 
     mail.send(msg)
+
