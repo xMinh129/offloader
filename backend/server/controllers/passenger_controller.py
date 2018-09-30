@@ -2,8 +2,11 @@ from flask import request, jsonify, json
 import pandas as pd
 from backend.server.models.run_model import run_model
 from backend.server.flight_data import PASSENGER_INFO
+from random import sample, choice
 
 JSON_RESPONSE_TYPE = 'application/json'
+
+STATUS_OPTIONS = ['UNKNOWN', 'ON TAXI', 'CHECKED IN']
 
 MOCK_DATA_PATH = "./server/models/input_example.csv"
 
@@ -34,6 +37,7 @@ class PassengerController(object):
                     'first_name': PASSENGER_INFO[index].get('first_name'),
                     'last_name': PASSENGER_INFO[index].get('last_name'),
                     'score': ranking.get(passenger[0]),
+                    'status': 'NOT CHECK IN',  # ['UNKNOWN', 'ON TAXI', 'CHECKED IN']
                     'details': {
                         'email': PASSENGER_INFO[index].get('email'),
                         'gender': passenger[1],
@@ -49,6 +53,46 @@ class PassengerController(object):
 
                 })
 
-            return jsonify(ranked_passengers=sorted(ranked_passengers, key=lambda k: k['score'], reverse=True))
+            return jsonify(
+                ranked_passengers=sorted(ranked_passengers, key=lambda k: k['score'], reverse=True),
+                checked_in=0,
+                flight_capacity=90,
+                total_booked=100,
+                time_remained=900
+            )
 
+        @app.route('/api/update_ranklist', methods=['POST'])
+        def update_ranked_passengers():
+            ranklist = json.loads(request.data).get('ranklist').get('ranked_passengers')
+            time_remained = json.loads(request.data).get('ranklist').get('time_remained')
+            flight_capacity = json.loads(request.data).get('ranklist').get('flight_capacity')
+            random_index = sample(range(1, 100), 15)
+            checked_in = json.loads(request.data).get('ranklist').get('checked_in')
+            available_seat = flight_capacity - checked_in
 
+            if available_seat is 90:
+                for i, item in enumerate(ranklist):
+                    if i in random_index:
+                        ranklist[i].update({'status': 'UNKNOWN'})
+                    else:
+                        ranklist[i].update({'status': 'CHECKED IN'})
+                        checked_in += 1
+                    time_remained = 90
+
+            else:
+                count = 2
+                for i, item in enumerate(ranklist):
+                    if count > 0:
+                        if item['status'] == 'UNKNOWN':
+                            item.update({'status': choice(['CHECKED IN', 'IN THE TAXI', 'IN THE TAXI'])})
+                            count = count - 1
+                            checked_in += 1
+                    else:
+                        break
+                time_remained = time_remained - 10
+
+            return jsonify(ranked_passengers=ranklist,
+                           checked_in=checked_in,
+                           flight_capacity=90,
+                           total_booked=100,
+                           time_remained=time_remained)

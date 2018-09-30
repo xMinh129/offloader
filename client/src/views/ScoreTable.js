@@ -6,6 +6,8 @@ import Button from "../components/CustomButton.jsx";
 import _ from "lodash";
 import axios from 'axios';
 import {data as data2} from './temp';
+import NotificationSystem from 'react-notification-system';
+import {style} from "../variables/Variables.jsx";
 
 
 const columns = [
@@ -18,10 +20,15 @@ const columns = [
         accessor: "last_name"
     },
     {
+        Header: "STATUS",
+        accessor: "status"
+    },
+    {
         Header: "Score",
         id: "score",
         accessor: "score"
-    }
+    },
+
 ];
 
 class ScoreTable extends React.Component {
@@ -33,9 +40,31 @@ class ScoreTable extends React.Component {
         else
             rankedData = this.props.newState
         this.state = {
-            rankedData
+            rankedData,
+            _notificationSystem: null
         };
         this.sendOffloadEmail = this.sendOffloadEmail.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
+    }
+
+    componentDidMount(){
+        this.setState({_notificationSystem: this.refs.notificationSystem})
+    }
+
+    handleClick(){
+        var level = 'success'; // 'success', 'warning', 'error' or 'info'
+        setTimeout(function(){this.state._notificationSystem.addNotification({
+            title: (<span data-notify="icon" className="pe-7s-gift"></span>),
+            message: (
+                <div>
+                    Email successfully sent
+                </div>
+            ),
+            level: level,
+            position: 'bc',
+            autoDismiss: 15,
+        })}.bind(this), 3000);
     }
 
     sendOffloadEmail(email, passenger){
@@ -52,7 +81,7 @@ class ScoreTable extends React.Component {
     }
 
     render() {
-        const {rankedData} = this.state;
+        let rankedData = this.props.newState;
 
         return (
 
@@ -71,16 +100,19 @@ class ScoreTable extends React.Component {
                         return <div>
                             {subrows}
                             <Button bsStyle="info" pullRight fill name="submit"
-                                    onClick={this.sendOffloadEmail(
+                                    onClick={this.handleClick(
                                         row.original.details.email, row.original.first_name + ' ' +  row.original.last_name)}>
-                                Notify Offload
+                                Offload this passenger
                             </Button>
+                            <br/>
+                            <br/>
                         </div>
                     }}
                 />
                 <br/>
                 {/*<Tips />*/}
                 {/*<Logo />*/}
+                <NotificationSystem ref="notificationSystem" style={style}/>
             </div>
         );
     }

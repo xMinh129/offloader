@@ -19,7 +19,7 @@ class PassengerList extends Component {
         var self = this;
         axios.get("http://0.0.0.0:5010/api/ranked_passengers")
             .then(function (response) {
-                let rankedData = response.data.ranked_passengers;
+                let rankedData = response.data;
                 console.log(rankedData);
                 self.setState({rankedData: rankedData});
                 self.props.updateState(self.state);
